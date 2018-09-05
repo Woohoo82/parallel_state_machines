@@ -12,13 +12,12 @@
 //  -Wire the series LED & Resistor between  Digital IO Pin 7 and Ground.
 //    (be sure the + terminal of the LED points toward the IO pin)
 
+#define  DEBUG
+
 #include "SW_StateMachine.h"
 #include "LED_StateMachine.h"
 
-// TODO enumerators for states
-
 //Top Level Variables:
-int DEBUG = 1;  //Set to 1 to enable serial monitor debugging info
 
 SW_StateMachine  sw1;
 LED_StateMachine bz1;
@@ -61,8 +60,9 @@ void setup() {
   led1.beep_count = 0;
   led1.beep_number= 4;
 
-  //if DEBUG is turned on, intiialize serial connection
-  if(DEBUG) {Serial.begin(115200);Serial.println("Debugging is ON");}
+  #ifdef DEBUG
+    Serial.begin(115200);Serial.println("Debugging is ON");
+  #endif
 }
 
 void loop() {
@@ -73,16 +73,14 @@ void loop() {
 
   //Provide events that can force the state machines to change state
   //I like to program interactions between state machines here in the top level loop
-  if (sw1.state == 5) {led1.state = led_TURN_ON;} //short press
-  if (sw1.state == 6) {bz1.state  = led_TURN_ON;} //long press
+  if (sw1.state == sw_TRIGGERED) {led1.state = led_TURN_ON;} //short press
+  if (sw1.state == sw_HOLD     ) {bz1.state  = led_TURN_ON;} //long press
 
-  if(DEBUG) {
-    //Make a note whenever a state machine changes state
-    //("Is the current state different from the previous? Yes? OK well let's tell the world the new state")
+  #ifdef DEBUG
     if((sw1.state_prev != sw1.state) | (led1.state_prev != led1.state) | (bz1.state_prev != bz1.state)) {
       Serial.print("Switch State: "); Serial.print(sw1.state);
       Serial.print(" | LED State: "); Serial.print(led1.state);
       Serial.print(" | Buzzer State: "); Serial.println(bz1.state);
     }
-  }
+  #endif
 }

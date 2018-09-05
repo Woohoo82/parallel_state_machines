@@ -40,13 +40,17 @@ void SW_StateMachine_do(SW_StateMachine &s) {
 
     case sw_TRIGGERED:
       //reset the State Machine
-      if (DEBUG) {Serial.println("TRIGGERED!!");}
+      #ifdef DEBUG
+        Serial.println("TRIGGERED!!");
+      #endif
       s.state = sw_RESET;
     break;
 
     case sw_HOLD:
       //proceed to LOW WAIT
-      if (DEBUG) {Serial.println("HOLDED!!");}
+      #ifdef DEBUG
+        Serial.println("HOLDED!!");
+      #endif
       s.state = sw_LOW_WAIT;
     break;
 

@@ -1,4 +1,4 @@
-//Switch Variables (I'm calling this switch "s1")
+//Switch Variables
 
 #ifndef __SW_SM__
 #define __SW_SM__

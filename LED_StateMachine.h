@@ -13,14 +13,14 @@ enum LED_state {led_RESET,
 typedef struct {
   enum LED_state state;     //The actual state of the state machine
   enum LED_state state_prev;//Remember the previous state (useful to know if the state has changed)
-  unsigned char pin;        //Buzzer pin
-  unsigned char val;        //Buzzer value (on or off)
-  unsigned long t;          //Current time of the buzzer state machine (in milli seconds)
-  unsigned long t_0;        //The time that we last passed through a state of interest (in milli seconds)
-  unsigned int  on_delay;   //On time for the buzzer as it beeps (in milli seconds)
-  unsigned int  off_delay;  //Off time for the buzzer as it beeps (in milli seconds)
-  unsigned char beep_count; //Number of times we've beeped on this journey
-  unsigned char beep_number;//Number of times we should beep before resetting
+  uint8_t  pin;         //Buzzer pin
+  uint8_t  val;         //Buzzer value (on or off)
+  uint32_t t;           //Current time of the buzzer state machine (in milli seconds)
+  uint32_t t_0;         //The time that we last passed through a state of interest (in milli seconds)
+  uint16_t on_delay;    //On time for the buzzer as it beeps (in milli seconds)
+  uint16_t off_delay;   //Off time for the buzzer as it beeps (in milli seconds)
+  uint8_t  beep_count;  //Number of times we've beeped on this journey
+  uint8_t  beep_number; //Number of times we should beep before resetting
 } LED_StateMachine;
 
 #endif

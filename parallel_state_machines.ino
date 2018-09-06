@@ -24,11 +24,6 @@ LED_StateMachine bz1;
 LED_StateMachine led1;
 
 void setup() {
-  // initialize digital pins
-  pinMode(sw1.pin,INPUT_PULLUP); //INPUT_PULLUP will use the Arduino's internal pullup resistor
-  pinMode(bz1.pin,OUTPUT);
-  pinMode(led1.pin,OUTPUT);
-
   sw1.state      = sw_RESET;
   sw1.state_prev = sw_RESET;
   sw1.pin        = 12;
@@ -60,6 +55,11 @@ void setup() {
   led1.beep_count = 0;
   led1.beep_number= 4;
 
+  // initialize digital pins
+  pinMode(sw1.pin,INPUT_PULLUP); //INPUT_PULLUP will use the Arduino's internal pullup resistor
+  pinMode(bz1.pin,OUTPUT);
+  pinMode(led1.pin,OUTPUT);
+
   #ifdef DEBUG
     Serial.begin(115200);Serial.println("Debugging is ON");
   #endif
@@ -67,7 +67,7 @@ void setup() {
 
 void loop() {
   //Instruct all the state machines to proceed one step (sometimes called a "cycle)
-  SW_StateMachine( sw1 );
+  SW_StateMachine_do( sw1 );
   LED_StateMachine_do( bz1 );
   LED_StateMachine_do( led1);
 
